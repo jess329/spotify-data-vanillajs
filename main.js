@@ -1,44 +1,52 @@
-console.log(document, window, navigator);
 
 const apiUrl = 'https://api.spotify.com/v1/browse/categories/toplists/playlists';
 const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
 const CLIENT_SECRET = "175b33f71a7e43d1b7a09156b2d26259"
-const REDIRECT_URI = "file:///C:/Users/jaspe/Desktop/Coding/.vscode/JS%20Projects/Spotify%20API%20(vanillajs)/index.html#"
+const response_type = "code"
+const REDIRECT_URI = "https://spotify-stats-jess.netlify.app/"
 let access_token = ""
 let refresh_token = ""
 
-curl -X POST "https://accounts.spotify.com/api/token" \
-     -H "Content-Type: application/x-www-form-urlencoded" \
-     -d "grant_type=client_credentials&client_id=your-client-id&client_secret=your-client-secret"
+
+const getToken = async (callback) => {
+    const result = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Basic " + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
+        },
+        body: "grant_type=client_credentials"
+    })
+    const data = await result.json()
+    // console.log(data);
+    const token = data.access_token
+    return callback(token)
+    // return data.access_token
+} 
+const assignAccessToken = (token) => {
+    access_token = token;
+    console.log(access_token);
+    return access_token
+};
+access_token = getToken(assignAccessToken).then()
+console.log(access_token);
 
 
-// const accessToken = 'your-access-token'; // Replace with your valid access token
-
-// fetch(apiUrl, {
-//   headers: {
-//     'Authorization': `Bearer ${accessToken}`,
-//   },
-// })
-//   .then(response => response.json())
-//   .then(data => {
-//     // Handle the API response data
-//     console.log(data);
-//     // Extract the relevant information and update your HTML accordingly
-//   })
-//   .catch(error => {
-//     // Handle error
-//     console.error('Error:', error);
-//   });
-
-const fetchSpotifyCharts = async () => {
-    const resp = await fetch(apiUrl)
+const fetchSpotifyCharts = async (token) => {
+    const resp = await fetch(apiUrl, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
     const data = await resp.json()
     console.log(data);
 }
-window.onload = () => {
-    try {
-        fetchSpotifyCharts()
-    } catch (error) {
-        console.log(error);
-    }
+
+const getAccessToken = async () => {
+    access_token = await getToken()
+    return access_token
 }
+
+// access_token = getAccessToken().then(() => {})
+// fetchSpotifyCharts(access_token)
+// console.log(access_token);
