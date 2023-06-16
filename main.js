@@ -6,30 +6,7 @@ const response_type = "code"
 const REDIRECT_URI = "https://spotify-stats-jess.netlify.app/"
 let access_token = ""
 let refresh_token = ""
-
-
-const getToken = async (callback) => {
-    const result = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": "Basic " + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
-        },
-        body: "grant_type=client_credentials"
-    })
-    const data = await result.json()
-    // console.log(data);
-    const token = data.access_token
-    return callback(token)
-    // return data.access_token
-} 
-const assignAccessToken = (token) => {
-    access_token = token;
-    console.log(access_token);
-    return access_token
-};
-access_token = getToken(assignAccessToken).then()
-console.log(access_token);
+const playlistId = "37i9dQZF1DX0XUsuxWHRQd"
 
 
 const fetchSpotifyCharts = async (token) => {
@@ -41,12 +18,63 @@ const fetchSpotifyCharts = async (token) => {
     const data = await resp.json()
     console.log(data);
 }
-
-const getAccessToken = async () => {
-    access_token = await getToken()
-    return access_token
+const fetchPlaylist = async (token) => {
+    const url = `https://api.spotify.com/v1/playlists/${playlistId}`
+    const resp = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+    const data = await resp.json()
+    console.log(data);
+    createPlaylistHMTL(data)
+}
+const createPlaylistHMTL = (playlist) => {
+    const playlistDiv = document.getElementsByClassName('playlist')[0];
+    const songs = playlist.tracks.items
+    console.log(songs);
+    songs.map((song) => {
+        const songDiv = document.createElement("div")
+        const song_name = document.createTextNode(`Track: ${song.track.name}`)
+        songDiv.appendChild(song_name)
+        playlistDiv.appendChild(songDiv)
+    })
 }
 
-// access_token = getAccessToken().then(() => {})
-// fetchSpotifyCharts(access_token)
-// console.log(access_token);
+const callDataFetching = (token) => {
+    fetchSpotifyCharts(token)
+    fetchPlaylist(token)
+}
+
+const getToken = async (callback) => {
+    const result = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Basic " + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
+        },
+        body: "grant_type=client_credentials"
+    })
+    const data = await result.json()
+    console.log(data);
+    const token = data.access_token
+
+    return callback(token)
+} 
+
+const assignAccessToken = (token) => {
+    access_token = token;
+    console.log(access_token);
+    callDataFetching(access_token)
+    return access_token
+};
+access_token = getToken(assignAccessToken).then()
+console.log(access_token);
+
+
+fetchSpotifyCharts(access_token)
+
+// const getAccessToken = async () => {
+//     access_token = await getToken()
+// }
+
