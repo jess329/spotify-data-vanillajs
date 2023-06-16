@@ -1,21 +1,47 @@
+:root {
+
+}
+
 html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Geologica";
+    background: linear-gradient(to right, #1d976c, #93f9b9);
 }
 
 /* Header */
 header h1 {
     text-align: center;
 }
+.general-user {
+    position: relative;
+    bottom: 4.5rem;
+    width: 70vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: end;
+}
+.general-user > * {
+    padding: 0 20px;
+    font-size: 15px;
+    font-family: "Geologica";
+    font-weight: 600;
+}
+.btn {
+    border: 1px solid black;
+}
+.btn.active {
+    background-color: #a5d5c4;
+}
+
 
 /* Main */
 .playlist {
     margin: 10px auto;    
     width: 70vw;
     padding: 1rem;
-    border: 2px solid black;
+    
 }
 .playlist h2 {
     margin: 0;
@@ -28,7 +54,8 @@ header h1 {
 .songDiv {
     margin: 0;
     padding: 10px;
-    background-color: #dbdff3;
+    background-color: #a5d5c4;
+    border: 2px solid black;
     display: flex;
     justify-content: space-between;
     align-items: center;

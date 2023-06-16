@@ -48,7 +48,6 @@ const createPlaylistHMTL = (playlist) => {
         const track = song.track.name
         const artists =  song.track.artists[0].name
         const link = song.track.external_urls.spotify
-        console.log(link);
 
         const songDiv = document.createElement("div")
         songDiv.classList.add("songDiv")
@@ -118,4 +117,18 @@ console.log(access_token);
 
 // fetchSpotifyCharts(access_token)
 
+const buttons = document.querySelectorAll(".btn")
+buttons.forEach((button) => {
+    console.log(button);
+    button.onclick = () => {
+        if(button == buttons[0]) {
+            buttons[0].classList.add("active")
+            buttons[1].classList.remove("active")
+        } else {
+            buttons[0].classList.remove("active")
+            buttons[1].classList.add("active")
+        }
+    } 
+        
+})
 
