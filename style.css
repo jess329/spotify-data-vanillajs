@@ -2,9 +2,29 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Geologica";
 }
 
 /* Header */
 header h1 {
     text-align: center;
+}
+
+/* Main */
+.playlist {
+    margin: 10px auto;    
+    width: 70vw;
+    padding: 1rem;
+    border: 2px solid black;
+}
+.playlist h2 {
+    margin: 0;
+    margin-bottom: 1rem;
+}
+.songDiv {
+    margin: 1rem 0;
+    background-color: #dbdff3;
+}
+.songDiv h3 {
+    margin: 0;
 }
