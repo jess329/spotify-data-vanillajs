@@ -21,10 +21,29 @@ header h1 {
     margin: 0;
     margin-bottom: 1rem;
 }
+.songs {
+    display: grid;
+    gap: 20px;
+}
 .songDiv {
-    margin: 1rem 0;
+    margin: 0;
+    padding: 10px;
     background-color: #dbdff3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .songDiv h3 {
     margin: 0;
+}
+
+@media screen and (min-width: 950px) {
+    .songs {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (min-width: 1500px) {
+    .songs {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

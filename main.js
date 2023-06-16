@@ -44,20 +44,39 @@ const createPlaylistHMTL = (playlist) => {
 
     // maps over songs array and creates HTML for every song
     songs.map((song) => {
+        const img = song?.track?.album?.images[2]?.url
+        const track = song.track.name
+        const artists =  song.track.artists[0].name
+        const link = song.track.external_urls.spotify
+        console.log(link);
+
         const songDiv = document.createElement("div")
         songDiv.classList.add("songDiv")
+        const songInfoDiv = document.createElement("div")
+        songInfoDiv.classList.add("song-info")
+        const linkTag = `<a href=${link} target=_blank >Play on Spotify<a/>` 
 
         const songNameTag = document.createElement("h3")
-        const song_name = document.createTextNode(`Track: ${song.track.name}`)
+        const song_name = document.createTextNode(`Track: ${track}`)
+        const artistTag = document.createElement("h3")
+        const artist = document.createTextNode(`Artist: ${artists}`)
+        const linkDiv = document.createElement("div")
+        
 
-        songDiv.appendChild(songNameTag)
-        songNameTag.appendChild(song_name)
         songsDiv.appendChild(songDiv)
-    
+        songDiv.appendChild(songInfoDiv)
+        songInfoDiv.appendChild(songNameTag)
+        songInfoDiv.appendChild(artistTag)
+        songInfoDiv.appendChild(linkDiv)
+        songNameTag.appendChild(song_name)
+        artistTag.appendChild(artist)
+
         const imgholderDiv = document.createElement("div")
         imgholderDiv.classList.add("imgholder")
-        // const songImgTag = `<img src=${song?.track?.album?.images?.images[0]?.url} classname="song-img" />`
-        // songDiv.appendChild(imgholderDiv)
+        imgholderDiv.innerHTML = `<img src=${img} classname="song-img" />`
+        songDiv.appendChild(imgholderDiv)
+
+        linkDiv.innerHTML = linkTag
     })
         
 }
