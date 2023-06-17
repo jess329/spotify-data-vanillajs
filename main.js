@@ -1,12 +1,19 @@
+
+
+
+
 // Necessary information stored in variables
 const apiUrl = 'https://api.spotify.com/v1/browse/categories/toplists/playlists';
 const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
 const CLIENT_SECRET = "175b33f71a7e43d1b7a09156b2d26259"
 const response_type = "code"
-const REDIRECT_URI = "https://spotify-stats-jess.netlify.app/"
+const REDIRECT_URI = "https://spotify-stats-jess.netlify.app"
+const scope = 'user-read-private user-read-email'
 let access_token = ""
 let refresh_token = ""
 const playlistId = "37i9dQZF1DX0XUsuxWHRQd"
+
+// Requesting general spotify data
 
 // fetches some playlists from spotify
 const fetchSpotifyPlaylists = async (token) => {
@@ -117,18 +124,37 @@ console.log(access_token);
 
 // fetchSpotifyCharts(access_token)
 
+// Requesting speficic data about a spotify user
+
+const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scope)}&response_type=code`;
+
 const buttons = document.querySelectorAll(".btn")
-buttons.forEach((button) => {
-    console.log(button);
+const generalData = document.getElementsByClassName("playlist")[0]
+const userContent = document.getElementsByClassName("user")[0]
+buttons.forEach((button, index) => {
     button.onclick = () => {
-        if(button == buttons[0]) {
+        if(index == 0) {
             buttons[0].classList.add("active")
             buttons[1].classList.remove("active")
+            generalData.style.display = "grid"
+            userContent.style.display = "none"
         } else {
             buttons[0].classList.remove("active")
             buttons[1].classList.add("active")
+            generalData.style.display = "none"
+            userContent.style.display = "grid"
         }
-    } 
-        
+    }    
 })
+
+const authBtn = document.getElementsByClassName("btn authorize")[0]
+authBtn.onclick = () => {
+    try {
+        window.location.href = authorizationUrl
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 

@@ -1,5 +1,23 @@
 :root {
-
+    --green-90-light: #ecf8f2;
+    --green-80-light: #daf1e4;
+    --green-70-light: #c7ead7;
+    --green-60-light: #b5e3c9;
+    --green-50-light: #a2ddbc;
+    --green-40-light: #8fd6ae;
+    --green-30-light: #7dcfa1;
+    --green-20-light: #6ac893;
+    --green-10-light: #58c186;
+    --green-0: #45ba78;
+    --green-10-dark: #3ea76c;
+    --green-20-dark: #379560;
+    --green-30-dark: #308254;
+    --green-40-dark: #297048;
+    --green-50-dark: #235d3c;
+    --green-60-dark: #1c4a30;
+    --green-70-dark: #153824;
+    --green-80-dark: #0e2518;
+    --green-90-dark: #07130c;
 }
 
 html, body {
@@ -9,6 +27,9 @@ html, body {
     font-family: "Geologica";
     background: linear-gradient(to right, #1d976c, #93f9b9);
 }
+button {
+    font-family: "Geologica";
+}
 
 /* Header */
 header h1 {
@@ -16,7 +37,7 @@ header h1 {
 }
 .general-user {
     position: relative;
-    bottom: 4.5rem;
+    top: 0.5rem;
     width: 70vw;
     margin: 0 auto;
     display: flex;
@@ -25,19 +46,19 @@ header h1 {
 .general-user > * {
     padding: 0 20px;
     font-size: 15px;
-    font-family: "Geologica";
     font-weight: 600;
 }
 .btn {
     border: 1px solid black;
 }
 .btn.active {
-    background-color: #a5d5c4;
+    background-color: var(--green-50-light);
 }
 
 
 /* Main */
 .playlist {
+    display: grid;
     margin: 10px auto;    
     width: 70vw;
     padding: 1rem;
@@ -54,7 +75,7 @@ header h1 {
 .songDiv {
     margin: 0;
     padding: 10px;
-    background-color: #a5d5c4;
+    background-color: var(--green-50-light);
     border: 2px solid black;
     display: flex;
     justify-content: space-between;
@@ -73,4 +94,15 @@ header h1 {
     .songs {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+/* User */
+.user {
+    display: none;
+    width: 100vw;
+    place-content: center;
+}
+.btn.authorize {
+    padding: 0 20px;
+    font-size: 15px;
 }
