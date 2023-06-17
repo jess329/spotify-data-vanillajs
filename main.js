@@ -154,6 +154,7 @@ authBtn.onclick = () => {
     } catch (err) {
         console.log(err);
     }
+    console.log(window.location.href);
 }
 
 
