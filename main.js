@@ -146,9 +146,7 @@ buttons.forEach((button, index) => {
 // const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scope)}&response_type=code`;
 
 const authBtn = document.getElementsByClassName("btn authorize")[0]
-authBtn.onclick = () => {
-    window.location.href = 'http://localhost:3500/login'
-}
+
 
 
 
