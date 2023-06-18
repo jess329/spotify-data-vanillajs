@@ -4,6 +4,7 @@ const port = 3500; // Change the port number if needed
 const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
 const CLIENT_SECRET = "175b33f71a7e43d1b7a09156b2d26259"
 const RED_URI = "https://spotify-stats-jess.netlify.app/callback"
+const scope = "user-top-read"
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -17,25 +18,21 @@ const spotifyAuthApi = new SpotifyWebApi({
 })
 
 app.get("/login", (req, res) => {
-  const generateRandomString = (length) => {
-      let text = "";
-      let possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  
-      for (let i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-      }
-      return text;
-    };
   
   const stateString = generateRandomString(16);
-  res.cookie("authState", stateString);
-  const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(RED_URI)}&scope=${encodeURIComponent(scope)}&response_type=code`;
+  // res.cookie("authState", stateString);
 
   
-  const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
-  console.log(loginLink);
-  res.redirect(authorizationUrl);
+  // const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
+  // console.log(loginLink);
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    querystring.stringify({
+      response_type: 'code',
+      client_id: CLIENT_ID,
+      scope: scope,
+      redirect_uri: RED_URI,
+      state: stateString
+    }));
 })
 
 app.get('/callback', (req, res) => {

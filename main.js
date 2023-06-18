@@ -1,7 +1,3 @@
-
-
-
-
 // Necessary information stored in variables
 const apiUrl = 'https://api.spotify.com/v1/browse/categories/toplists/playlists';
 const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
