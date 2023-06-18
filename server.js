@@ -32,22 +32,15 @@ app.get("/login", (req, res) => {
     return text;
   }
 
-  res.send('Hello World!')
   const stateString = generateRandomString(16);
   res.cookie("authState", stateString);
   
   
-  const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
-  res.redirect("https://accounts.spotify.com/authorize")
+  // const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
 
-  // res.redirect('https://accounts.spotify.com/authorize?' +
-  //   querystring.stringify({
-  //     response_type: 'code',
-  //     client_id: CLIENT_ID,
-  //     scope: 'user-read-private user-read-email',
-  //     redirect_uri: RED_URI,
-  //     state: stateString
-  //   }));
+  res.redirect(`https://accounts.spotify.com/authorize?
+    ${CLIENT_ID}&response_type=code&redirect_uri=${RED_URI}`)
+
 })
 
 app.get('/callback', (req, res) => {
