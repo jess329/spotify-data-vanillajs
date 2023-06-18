@@ -8,7 +8,7 @@ const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
 const CLIENT_SECRET = "175b33f71a7e43d1b7a09156b2d26259"
 const response_type = "code"
 const REDIRECT_URI = "http://localhost:3500/callback"
-const scope = 'user-read-private user-read-email'
+const scope = 'user-top-read'
 let access_token = ""
 let refresh_token = ""
 const playlistId = "37i9dQZF1DX0XUsuxWHRQd"
@@ -146,43 +146,13 @@ buttons.forEach((button, index) => {
     }    
 })
 
-const SpotifyWebApi = require("spotify-web-api-node")
-const spotifyAuthApi = new SpotifyWebApi({
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    redirectUri: REDIRECT_URI,
-})
-
-const express = require("express")
-const app = express()
-
 
 // const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scope)}&response_type=code`;
 
 const authBtn = document.getElementsByClassName("btn authorize")[0]
 authBtn.onclick = () => {
-
+    window.location.href = '/login'
 }
-
-app.get("/login", (req, res) => {
-    const generateRandomString = (length) => {
-        let text = "";
-        let possible =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    
-        for (let i = 0; i < length; i++) {
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        return text;
-      };
-    
-    const stateString = generateRandomString(16);
-    res.cookie("authState", stateString);
-    
-    const scopes = ["user-top-read"];
-    const loginLink = spotifyAuthApi.createAuthorizeURL(scopes, stateString);
-    res.redirect(loginLink);
-})
 
 
 
