@@ -19,6 +19,7 @@ const spotifyAuthApi = new SpotifyWebApi({
 
 app.get("/login", (req, res) => {
   
+  res.send('Hello World!')
   const stateString = generateRandomString(16);
   // res.cookie("authState", stateString);
 
