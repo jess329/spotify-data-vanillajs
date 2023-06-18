@@ -177,7 +177,7 @@ app.get("/login", (req, res) => {
     res.cookie("authState", stateString);
     
     const scopes = ["user-top-read"];
-    const loginLink = spotifyAuthAPI.createAuthorizeURL(scopes, stateString);
+    const loginLink = spotifyAuthApi.createAuthorizeURL(scopes, stateString);
     res.redirect(loginLink);
 })
 }
