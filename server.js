@@ -1,9 +1,11 @@
+require("dotenv").config()
+
 const express = require('express');
 const app = express();
 const port = 3500; // Change the port number if needed
-const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
-const CLIENT_SECRET = "175b33f71a7e43d1b7a09156b2d26259"
-const RED_URI = "https://spotify-stats-jess.netlify.app/callback"
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+const RED_URI = "http://localhost:3500/callback"
 const scope = "user-top-read"
 
 app.get('/', (req, res) => {
@@ -19,21 +21,33 @@ const spotifyAuthApi = new SpotifyWebApi({
 
 app.get("/login", (req, res) => {
   
+  function generateRandomString(length) {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    
+    return text;
+  }
+
   res.send('Hello World!')
   const stateString = generateRandomString(16);
-  // res.cookie("authState", stateString);
+  res.cookie("authState", stateString);
   
   
-  // const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
-  // console.log(loginLink);
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: CLIENT_ID,
-      scope: 'user-read-private user-read-email',
-      redirect_uri: RED_URI,
-      state: stateString
-    }));
+  const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
+  res.redirect("https://accounts.spotify.com/authorize")
+
+  // res.redirect('https://accounts.spotify.com/authorize?' +
+  //   querystring.stringify({
+  //     response_type: 'code',
+  //     client_id: CLIENT_ID,
+  //     scope: 'user-read-private user-read-email',
+  //     redirect_uri: RED_URI,
+  //     state: stateString
+  //   }));
 })
 
 app.get('/callback', (req, res) => {
