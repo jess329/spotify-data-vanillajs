@@ -22,7 +22,7 @@ app.get("/login", (req, res) => {
   res.send('Hello World!')
   const stateString = generateRandomString(16);
   // res.cookie("authState", stateString);
-
+  
   
   // const loginLink = spotifyAuthApi.createAuthorizeURL(scope, stateString);
   // console.log(loginLink);
@@ -30,7 +30,7 @@ app.get("/login", (req, res) => {
     querystring.stringify({
       response_type: 'code',
       client_id: CLIENT_ID,
-      scope: scope,
+      scope: "user-top-read",
       redirect_uri: RED_URI,
       state: stateString
     }));
