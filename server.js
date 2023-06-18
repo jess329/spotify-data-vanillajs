@@ -3,7 +3,7 @@ const app = express();
 const port = 3500; // Change the port number if needed
 const CLIENT_ID = "78e5f6cd10474053b7c867134e3f5205"
 const CLIENT_SECRET = "175b33f71a7e43d1b7a09156b2d26259"
-const RED_URI = "https%3A%2F%2Fspotify-stats-jess.netlify.app%2Fcallback"
+const RED_URI = "https://spotify-stats-jess.netlify.app/callback"
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
