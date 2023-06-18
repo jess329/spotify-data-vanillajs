@@ -161,6 +161,9 @@ const app = express()
 
 const authBtn = document.getElementsByClassName("btn authorize")[0]
 authBtn.onclick = () => {
+
+}
+
 app.get("/login", (req, res) => {
     const generateRandomString = (length) => {
         let text = "";
@@ -180,7 +183,6 @@ app.get("/login", (req, res) => {
     const loginLink = spotifyAuthApi.createAuthorizeURL(scopes, stateString);
     res.redirect(loginLink);
 })
-}
 
 
 
