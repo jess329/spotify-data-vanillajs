@@ -147,7 +147,7 @@ buttons.forEach((button, index) => {
 
 const authBtn = document.getElementsByClassName("btn authorize")[0]
 authBtn.onclick = () => {
-    window.location.href = '/login'
+    window.location.href = 'http://localhost:3500/login'
 }
 
 
